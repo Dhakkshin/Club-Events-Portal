@@ -1,37 +1,67 @@
-import { StyleSheet, Text, View,TextInput,Button } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Link } from 'expo-router';
 
 const CreateAcc = () => {
   return (
     <View style={styles.container}>
-      <Text>Register here</Text>
-      <TextInput style={styles.input} placeholder='email id'/>
-      <TextInput style={styles.input} placeholder='password' secureTextEntry={true}/>
-      <TextInput style={styles.input} placeholder='Confirm password' secureTextEntry={true}/>
-      <View style={styles.buttonContainer}>
-        <Button title="Register" />
+      <Text style={styles.heading}>Register Here</Text>
+      <TextInput style={styles.input} placeholder='Email Id' />
+      <TextInput style={styles.input} placeholder='Mobile Number' keyboardType='numeric' />
+      <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
+      <TextInput style={styles.input} placeholder='Confirm Password' secureTextEntry={true} />
+      <TouchableOpacity style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
+      <View style={styles.loginContainer}>
+        <Text>Already have an account? </Text>
+        <Link href="/Login">
+          <Text style={styles.loginLink}>Login</Text>
+        </Link>
       </View>
     </View>
   )
 }
 
-export default CreateAcc
+export default CreateAcc;
 
 const styles = StyleSheet.create({
-    container: {
-      padding: 60,
-    },
-    input: {
-      height: 40,
-      borderColor: 'gray',
-      borderWidth: 1,
-      marginTop: 20,
-      paddingHorizontal: 10,
-    },
-    buttonContainer: {
-      marginTop: 20,
-      backgroundColor: 'red',
-      borderRadius: 5,
-    },
-  });
-  
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  buttonContainer: {
+    backgroundColor: 'red',
+    paddingVertical: 15,
+    borderRadius: 5,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  loginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  loginLink: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+});

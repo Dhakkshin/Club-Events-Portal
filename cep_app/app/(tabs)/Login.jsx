@@ -1,33 +1,56 @@
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import React from 'react';
-const Login = () => {
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { Link } from 'expo-router';
+
+const Login = ({ navigation }) => {
+  const handleLogin = () => {
+    // Add logic for handling login/authentication
+    // Example: navigation.navigate('Home') to navigate to the Home screen after successful login
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
-      <TextInput style={styles.input} placeholder='email id'/>
-      <TextInput style={styles.input} placeholder='password' secureTextEntry={true}/>
-      <View style={styles.buttonContainer}>
-        <Button title="Login" />
-      </View>
+      <Text style={styles.heading}>Login</Text>
+      <TextInput style={styles.input} placeholder='Email Id' keyboardType='email-address' />
+      <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
+      <Link href="/Homep" style={styles.buttonContainer} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+      </Link>
     </View>
   );
-}
+};
+
 export default Login;
- 
+
 const styles = StyleSheet.create({
   container: {
-    padding: 60,
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginTop: 20,
+    marginBottom: 20,
     paddingHorizontal: 10,
   },
   buttonContainer: {
-    marginTop: 20,
     backgroundColor: 'red',
+    paddingVertical: 15,
     borderRadius: 5,
+    textAlign: 'center',
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
