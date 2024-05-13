@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
       <TextInput style={styles.input} placeholder='Email Id' keyboardType='email-address' />
       <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
       <Link href="/Homep" style={styles.buttonContainer} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+        <Text style={styles.buttonText}>Logine</Text>
       </Link>
     </View>
   );

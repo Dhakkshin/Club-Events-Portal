@@ -1,5 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 const Homep = () => {
   return (
     <SafeAreaView>
@@ -12,6 +13,7 @@ const Homep = () => {
         <View style={styles.EventsApplied}>
             <Text>Events Applied</Text>
         </View>
+        <Link href="/Event">checkout</Link>
     </SafeAreaView>
   )
 }
