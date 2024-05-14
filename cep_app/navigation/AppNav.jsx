@@ -18,7 +18,7 @@ const AppNav = () => {
 
   return (
     <>
-      {userToken !== null ?   <Homep />:<GetStarted/>}
+      {userToken !== null ? <Homep/> : <GetStarted/>}
     </>
   );
 };
