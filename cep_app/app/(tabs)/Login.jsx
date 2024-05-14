@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Link } from 'expo-router';
 
 const Login = ({ navigation }) => {
-  const handleLogin = () => {
-    // Add logic for handling login/authentication
-    // Example: navigation.navigate('Home') to navigate to the Home screen after successful login
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Login</Text>
-      <TextInput style={styles.input} placeholder='Email Id' keyboardType='email-address' />
+      <TextInput style={styles.input} placeholder='Roll No.'  />
       <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
-      <Link href="/Homep" style={styles.buttonContainer} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Logine</Text>
+      <Link href="/Homep" style={styles.buttonContainer} >
+        <Text style={styles.buttonText}>Login</Text>
       </Link>
     </View>
   );
 };
-
 export default Login;
 
 const styles = StyleSheet.create({

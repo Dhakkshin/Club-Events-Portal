@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
-
 const CreateAcc = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Register Here</Text>
-      <TextInput style={styles.input} placeholder='Email Id' />
-      <TextInput style={styles.input} placeholder='Mobile Number' keyboardType='numeric' />
+      <TextInput style={styles.input} placeholder='Name' />
+      <TextInput style={styles.input} placeholder='Roll No.' />
+      <TextInput style={styles.input} placeholder='Phone' />
+      <TextInput style={styles.input} placeholder='Department ex:Z for Cse ' />
+      <TextInput style={styles.input} placeholder='year 1-5' />
       <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
       <TextInput style={styles.input} placeholder='Confirm Password' secureTextEntry={true} />
       <TouchableOpacity style={styles.buttonContainer}>
@@ -22,7 +24,6 @@ const CreateAcc = () => {
     </View>
   )
 }
-
 export default CreateAcc;
 
 const styles = StyleSheet.create({
