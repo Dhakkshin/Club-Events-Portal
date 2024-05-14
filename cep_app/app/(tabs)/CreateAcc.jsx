@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios';
-import { Link } from 'expo-router'; // Import Link from Expo Router
+import { useNavigation } from '@react-navigation/native';
 
 const CreateAcc = () => {
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [rollNo, setRollNo] = useState('');
   const [phone, setPhone] = useState('');
@@ -59,17 +60,26 @@ const CreateAcc = () => {
       />
       <TextInput
         style={styles.input}
-        placeholder='Department'
+        placeholder='Department Z for CSE'
         value={department}
         onChangeText={setDepartment}
       />
       <TextInput
-        style={styles.input}
-        placeholder='Year'
-        value={year}
-        onChangeText={setYear}
-        keyboardType='numeric'
-      />
+  style={styles.input}
+  placeholder='Year 1-5'
+  value={year.toString()} // Convert year to string for display
+  onChangeText={(text) => {
+    // Check if the entered text is a valid integer
+    const parsedYear = parseInt(text);
+    if (!isNaN(parsedYear)) {
+      // Ensure year is between 1 and 5
+      if (parsedYear >= 1 && parsedYear <= 5) {
+        setYear(parsedYear); // Set year as integer
+      }
+    }
+  }}
+  keyboardType='numeric'
+/>
       <TextInput
         style={styles.input}
         placeholder='Password'
@@ -89,9 +99,9 @@ const CreateAcc = () => {
       </TouchableOpacity>
       <View style={styles.loginContainer}>
         <Text>Already have an account? </Text>
-        <Link href="/Login"> {/* Specify the destination route in the href prop */}
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.loginLink}>Login</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
     </View>
   );

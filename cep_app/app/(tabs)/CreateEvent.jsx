@@ -1,7 +1,8 @@
+import axios from "axios";
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
+import { backendBase } from "../url";
 const CreateEvent = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -19,7 +20,7 @@ const CreateEvent = () => {
   };
 
   const handleDateConfirm = (date) => {
-    setEventDate(date.toDateString()); // Format the date as per your requirement
+    setEventDate(date.toISOString().split('T')[0]); // Format the date as per your requirement
     hideDatePicker();
   };
 
@@ -36,12 +37,34 @@ const CreateEvent = () => {
     hideTimePicker();
   };
 
-  const handleSubmit = () => {
-    // Add your submit logic here
-    console.log("Event Name:", eventName);
-    console.log("Event Description:", eventDescription);
-    console.log("Event Date:", eventDate);
-    console.log("Event Time:", eventTime);
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(`${backendBase}/create_event`, {
+        name: eventName,
+        description: eventDescription,
+        date: eventDate,
+        time: eventTime,
+        venue: "Venue Name", // Example, you can set venue dynamically if needed
+        departments: ["CS", "IT"], // Example, you can customize this based on user input
+        years: ["1", "2"], // Example, you can customize this based on user input
+        organisation: "Org Name", // Example, you can set organisation dynamically if needed
+        poster: "poster_url", // Example, you can set poster dynamically if needed
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.message === "Event created successfully") {
+        Alert.alert("Success", "Event created successfully");
+        // Optionally, you can reset the form fields here
+      } else {
+        Alert.alert("Error", "Failed to create event");
+      }
+    } catch (error) {
+      console.error("Error creating event:", error);
+      Alert.alert("Error", "Failed to create event");
+    }
   };
 
   return (

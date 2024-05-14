@@ -1,37 +1,41 @@
-import React, { useContext } from 'react';
-import { View, Button, StyleSheet, Image,Text } from 'react-native';
-import {Link} from 'expo-router';
+import React from 'react';
+import { View, Button, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 // Assuming the image file is located in the 'images' folder within your project directory
 const clglogo = require('./../../assets/images/PSG_College_of_Technology_logo.png');
+
 const GetStarted = () => {
+    const navigation = useNavigation();
+
     const handlePress = () => {
-        console.log("Button pressed!");
-      };
-      return (
+        navigation.navigate('CreateAcc');
+    };
+
+    return (
         <View style={styles.container}>
-          <Image source={clglogo} style={styles.logo} />
-          <View style={styles.button}>
-          <Link href="/CreateAcc" style={{color:'white'}}>Get Started</Link>
-          </View>
+            <Image source={clglogo} style={styles.logo} />
+            <View style={styles.button}>
+                <Button title="Get Started" onPress={handlePress} color="white" />
+            </View>
         </View>
-      );
+    );
 }
 
-export default GetStarted
+export default GetStarted;
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    button:{
-      backgroundColor:'black',
+    button: {
+        backgroundColor: 'black',
     },
     logo: {
-      width: 210, 
-      height: 300, 
-      marginBottom: 20, 
+        width: 210,
+        height: 300,
+        marginBottom: 20,
     },
-  });
-  
+});
