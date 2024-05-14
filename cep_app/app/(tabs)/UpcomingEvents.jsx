@@ -1,37 +1,51 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { backendBase } from './../url'
+import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { backendBase } from "./../url";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UpcomingEvents = () => {
-  const [upcomingEvents, setUpcomingEvents] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUpcomingEvents = async () => {
       try {
-        // Fetch JWT token from your authentication system
-        const token = 'your_jwt_token_here';
-        
+        // Fetch JWT token from AsyncStorage
+        const token = await AsyncStorage.getItem("token");
+
+        if (!token) {
+          throw new Error("Token not found");
+        }
+
+        console.log("Token retrieved:", token);
+
         // Make an API call to retrieve events with JWT token in headers
         const response = await axios.get(`${backendBase}/events`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
-        // Filter out events that have already occurred
-        const upcoming = response.data.filter(event => new Date(event.date) > new Date())
-        setUpcomingEvents(upcoming)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching upcoming events:', error)
-        setLoading(false)
-      }
-    }
+        console.log("Response data before filter:", response.data);
 
-    fetchUpcomingEvents()
-  }, [])
+        // Filter out events that have already occurred
+        const upcoming = response.data.filter(
+          (event) => new Date(event.date) > new Date()
+        );
+
+        console.log("Filtered upcoming events:", upcoming);
+
+        setUpcomingEvents(upcoming);
+      } catch (error) {
+        console.error("Error fetching upcoming events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUpcomingEvents();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -41,7 +55,7 @@ const UpcomingEvents = () => {
       ) : upcomingEvents.length === 0 ? (
         <Text>No upcoming events</Text>
       ) : (
-        upcomingEvents.map(event => (
+        upcomingEvents.map((event) => (
           <View key={event.event_id} style={styles.eventContainer}>
             <Text style={styles.eventName}>{event.name}</Text>
             <Text>Date: {event.date}</Text>
@@ -50,10 +64,10 @@ const UpcomingEvents = () => {
         ))
       )}
     </View>
-  )
-}
+  );
+};
 
-export default UpcomingEvents
+export default UpcomingEvents;
 
 const styles = StyleSheet.create({
   container: {
@@ -62,18 +76,18 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   eventContainer: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
   },
   eventName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
-})
+});
