@@ -12,7 +12,7 @@ import UpcomingEvents from './UpcomingEvents';
 
 const Stack = createStackNavigator();
 
-export default function HomeScreen() {
+export default function App() {
   return (
     <NavigationContainer independent={true}> 
       <Stack.Navigator initialRouteName="GetStarted">

@@ -64,23 +64,29 @@ const Login = () => {
   );
 };
 
+
 export default Login;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    justifyContent: "center",
     paddingHorizontal: 20,
+    backgroundColor: "#fff",
     backgroundColor: "#fff",
   },
   heading: {
     fontSize: 24,
     fontWeight: "bold",
+    fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
     textAlign: "center",
   },
   input: {
     height: 40,
+    borderColor: "gray",
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,
@@ -88,11 +94,16 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: "red",
+    backgroundColor: "red",
     paddingVertical: 15,
     borderRadius: 5,
     textAlign: "center",
+    textAlign: "center",
   },
   buttonText: {
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold",
     textAlign: "center",
     color: "#fff",
     fontWeight: "bold",
