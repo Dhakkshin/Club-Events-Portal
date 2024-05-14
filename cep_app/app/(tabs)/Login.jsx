@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Touchable, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 
 const Login = ({ navigation }) => {
@@ -8,9 +8,11 @@ const Login = ({ navigation }) => {
       <Text style={styles.heading}>Login</Text>
       <TextInput style={styles.input} placeholder='Roll No.'  />
       <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
+      <TouchableOpacity>
       <Link href="/Homep" style={styles.buttonContainer} >
         <Text style={styles.buttonText}>Login</Text>
       </Link>
+      </TouchableOpacity>
     </View>
   );
 };

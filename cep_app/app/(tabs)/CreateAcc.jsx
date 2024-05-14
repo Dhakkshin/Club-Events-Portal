@@ -9,7 +9,7 @@ const CreateAcc = () => {
       <TextInput style={styles.input} placeholder='Roll No.' />
       <TextInput style={styles.input} placeholder='Phone' />
       <TextInput style={styles.input} placeholder='Department ex:Z for Cse ' />
-      <TextInput style={styles.input} placeholder='year 1-5' />
+      <TextInput style={styles.input} placeholder='year 1-5' keyboardType='numeric'/>
       <TextInput style={styles.input} placeholder='Password' secureTextEntry={true} />
       <TextInput style={styles.input} placeholder='Confirm Password' secureTextEntry={true} />
       <TouchableOpacity style={styles.buttonContainer}>
