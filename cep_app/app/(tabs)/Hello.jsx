@@ -5,10 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 const Hello = () => {
   const navigation = useNavigation();
 
-  const handleCheckout = () => {
-    navigation.navigate('Event');
-  };
-
   const handleProfile = () => {
     navigation.navigate('Profile');
   };
@@ -20,6 +16,15 @@ const Hello = () => {
   const handleUE = () => {
     navigation.navigate('UpcomingEvents');
   };
+  const handleRegisteredEvents = () => {
+    navigation.navigate('RegisteredEvents');
+  };
+  const handleStudents = () => {
+    navigation.navigate('Students');
+  };
+  const handleForum = () => {
+    navigation.navigate('Forum');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,17 +32,20 @@ const Hello = () => {
       <TouchableOpacity style={styles.button} onPress={handleUE}>
         <Text style={styles.buttonText}>Upcoming Events</Text>
       </TouchableOpacity>
-      <View style={styles.sectionContainer}>
-        <Text>Events Applied</Text>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={handleCheckout}>
-        <Text style={styles.buttonText}>Checkout</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={handleProfile}>
         <Text style={styles.buttonText}>Profile</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={handleCreateEvent}>
         <Text style={styles.buttonText}>Create Event</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleRegisteredEvents}>
+        <Text style={styles.buttonText}>Registered Event</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleStudents}>
+        <Text style={styles.buttonText}>Registered Students</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleForum}>
+        <Text style={styles.buttonText}>Forum</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

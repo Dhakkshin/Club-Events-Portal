@@ -2,7 +2,9 @@ import axios from "axios";
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { backendBase } from "../url";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { backendBase } from "../url"; // Import backendBase from "../url"
+
 const CreateEvent = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -10,6 +12,8 @@ const CreateEvent = () => {
   const [eventTime, setEventTime] = useState('');
   const [eventName, setEventName] = useState('');
   const [eventDescription, setEventDescription] = useState('');
+  const [eventVenue, setEventVenue] = useState('');
+  const [organization, setOrganization] = useState('');
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -39,22 +43,37 @@ const CreateEvent = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${backendBase}/create_event`, {
-        name: eventName,
-        description: eventDescription,
-        date: eventDate,
-        time: eventTime,
-        venue: "Venue Name", // Example, you can set venue dynamically if needed
-        departments: ["CS", "IT"], // Example, you can customize this based on user input
-        years: ["1", "2"], // Example, you can customize this based on user input
-        organisation: "Org Name", // Example, you can set organisation dynamically if needed
-        poster: "poster_url", // Example, you can set poster dynamically if needed
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      // Retrieve JWT token from AsyncStorage
+      const token = await AsyncStorage.getItem("token");
 
+      // Make sure token exists
+      if (!token) {
+        Alert.alert("Error", "JWT token not found. Please log in.");
+        return;
+      }
+
+      // Send a POST request to create event
+      const response = await axios.post(
+        `${backendBase}/create_event`,
+        {
+          name: eventName,
+          description: eventDescription,
+          date: eventDate,
+          time: eventTime,
+          venue: eventVenue,
+          departments: ["CS", "IT"],
+          years: ["1", "2"],
+          organisation: organization,
+          poster: "poster_url", // Adjust as necessary
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include JWT token in the Authorization header
+          },
+        }
+      );
+
+      // Check response and show appropriate alert
       if (response.data.message === "Event created successfully") {
         Alert.alert("Success", "Event created successfully");
         // Optionally, you can reset the form fields here
@@ -82,6 +101,18 @@ const CreateEvent = () => {
         multiline
         value={eventDescription}
         onChangeText={text => setEventDescription(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Event Venue'
+        value={eventVenue}
+        onChangeText={text => setEventVenue(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Organization'
+        value={organization}
+        onChangeText={text => setOrganization(text)}
       />
       <View style={styles.dateTimeContainer}>
         <View style={styles.dateTimePicker}>

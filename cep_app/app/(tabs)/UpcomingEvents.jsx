@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button, Modal } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendBase } from "./../url";
@@ -7,6 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const UpcomingEvents = () => {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchUpcomingEvents = async () => {
@@ -47,6 +49,52 @@ const UpcomingEvents = () => {
     fetchUpcomingEvents();
   }, []);
 
+  const openEventDetails = async (eventId) => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const response = await axios.get(`${backendBase}/event/${eventId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSelectedEvent(response.data);
+      setModalVisible(true);
+    } catch (error) {
+      console.error("Error fetching event details:", error);
+    }
+  };
+
+  const registerForEvent = async (eventId) => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("Token not found");
+      }
+
+      const response = await axios.post(
+        `${backendBase}/register_event/${eventId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Registration response:", response.data);
+      // You can handle success or failure here, such as displaying a message to the user
+    } catch (error) {
+      console.error("Error registering for event:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Upcoming Events</Text>
@@ -60,9 +108,43 @@ const UpcomingEvents = () => {
             <Text style={styles.eventName}>{event.name}</Text>
             <Text>Date: {event.date}</Text>
             <Text>Organization: {event.organization}</Text>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="View Details"
+                onPress={() => openEventDetails(event.event_id)}
+              />
+              <Button
+                title="Register"
+                onPress={() => registerForEvent(event.event_id)}
+              />
+            </View>
           </View>
         ))
       )}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalHeader}>Event Details</Text>
+          {selectedEvent && (
+            <View style={styles.eventDetailsContainer}>
+              <Text>Name: {selectedEvent.name}</Text>
+              <Text>Date: {selectedEvent.date}</Text>
+              <Text>Description: {selectedEvent.description}</Text>
+              {/* Add more details here */}
+            </View>
+          )}
+          <Button
+            title="Close"
+            onPress={() => setModalVisible(false)}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -89,5 +171,27 @@ const styles = StyleSheet.create({
   eventName: {
     fontWeight: "bold",
     marginBottom: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalHeader: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  eventDetailsContainer: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
   },
 });

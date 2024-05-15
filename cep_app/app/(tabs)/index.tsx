@@ -9,7 +9,9 @@ import Event from './Event';
 import Profile from './Profile';
 import CreateEvent from './CreateEvent';
 import UpcomingEvents from './UpcomingEvents';
-
+import RegisteredEvents from './RegisteredEvents';
+import Students from './Students';
+import Forum from './Forum';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -24,6 +26,9 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
         <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ title: 'CreateEvent' }} />
         <Stack.Screen name="UpcomingEvents" component={UpcomingEvents} options={{ title: 'UpcomingEvents' }} />
+        <Stack.Screen name="RegisteredEvents" component={RegisteredEvents} options={{ title: 'RegisteredEvents' }} />
+        <Stack.Screen name="Students" component={Students} options={{ title: 'Students' }} />
+        <Stack.Screen name="Forum" component={Forum} options={{ title: 'Forum' }} />
 
       </Stack.Navigator>
     </NavigationContainer>
