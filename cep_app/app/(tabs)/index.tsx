@@ -21,7 +21,7 @@ export default function App() {
         <Stack.Screen name="Home" component={GetStarted} options={{ title: 'Home' }} />
         <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
         <Stack.Screen name="CreateAcc" component={CreateAcc} options={{ title: 'Register' }} />
-        <Stack.Screen name="Hello" component={Hello} options={{ title: 'Hello' }} />
+        <Stack.Screen name="Hello" component={Hello} options={{ title: 'Club Events Portal' }} />
         <Stack.Screen name="Event" component={Event} options={{ title: 'Event' }} />
         <Stack.Screen name="Profile" component={Profile} options={{ title: 'Profile' }} />
         <Stack.Screen name="CreateEvent" component={CreateEvent} options={{ title: 'CreateEvent' }} />

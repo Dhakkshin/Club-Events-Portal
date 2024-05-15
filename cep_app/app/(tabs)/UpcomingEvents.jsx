@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Modal } from "react-native";
+import { StyleSheet, Text, View, Button, Modal, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendBase } from "./../url";
@@ -89,6 +89,7 @@ const UpcomingEvents = () => {
       );
 
       console.log("Registration response:", response.data);
+      Alert.alert(response.data.message);
       // You can handle success or failure here, such as displaying a message to the user
     } catch (error) {
       console.error("Error registering for event:", error);
