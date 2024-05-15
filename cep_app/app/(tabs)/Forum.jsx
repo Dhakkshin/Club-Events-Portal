@@ -76,7 +76,9 @@ const Forum = () => {
         ) : (
           posts.map((post, index) => (
             <View key={index} style={styles.post}>
+             
               <Text style={styles.postContent}>{post.content}</Text>
+              <Text>{post.author_id}</Text>
               <Text style={styles.postDate}>Posted on: {post.post_date}</Text>
             </View>
           ))

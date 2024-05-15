@@ -33,11 +33,26 @@ const Profile = () => {
     <View style={styles.container}>
       {profileData && (
         <>
-          <Text style={styles.text}>Name: {profileData.name}</Text>
-          <Text style={styles.text}>Department: {profileData.department}</Text>
-          <Text style={styles.text}>Year: {profileData.year}</Text>
-          <Text style={styles.text}>Roll No: {profileData.rollno}</Text>
-          <Text style={styles.text}>Phone: {profileData.phone}</Text>
+          <View style={[styles.row, styles.rowContainer]}>
+            <Text style={styles.label}>Name:</Text>
+            <Text style={styles.text}>{profileData.name}</Text>
+          </View>
+          <View style={[styles.row, styles.rowContainer]}>
+            <Text style={styles.label}>Department:</Text>
+            <Text style={styles.text}>{profileData.department}</Text>
+          </View>
+          <View style={[styles.row, styles.rowContainer]}>
+            <Text style={styles.label}>Year:</Text>
+            <Text style={styles.text}>{profileData.year}</Text>
+          </View>
+          <View style={[styles.row, styles.rowContainer]}>
+            <Text style={styles.label}>Roll No:</Text>
+            <Text style={styles.text}>{profileData.rollno}</Text>
+          </View>
+          <View style={[styles.row, styles.rowContainer]}>
+            <Text style={styles.label}>Phone:</Text>
+            <Text style={styles.text}>{profileData.phone}</Text>
+          </View>
         </>
       )}
     </View>
@@ -51,9 +66,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 20,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowContainer: {
+    marginBottom: 10, // Add some space between each row
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginRight: 5,
+    color: "#333", // Dark gray color for labels
   },
   text: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 16,
+    color: "#555", // Medium gray color for text
   },
 });

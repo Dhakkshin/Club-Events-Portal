@@ -90,79 +90,81 @@ const CreateEvent = () => {
 
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <Text style={styles.heading}>Create Event</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='Event Name' 
-        value={eventName}
-        onChangeText={text => setEventName(text)}
-      />
-      <TextInput
-        style={styles.descriptionInput}
-        placeholder='Description of the event'
-        multiline
-        value={eventDescription}
-        onChangeText={text => setEventDescription(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Event Venue'
-        value={eventVenue}
-        onChangeText={text => setEventVenue(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Organization'
-        value={organization}
-        onChangeText={text => setOrganization(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Allowed Departments (comma-separated)'
-        value={allowedDepartments}
-        onChangeText={text => setAllowedDepartments(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Allowed Years (comma-separated)'
-        value={allowedYears}
-        onChangeText={text => setAllowedYears(text)}
-      />
-      <View style={styles.dateTimeContainer}>
-        <View style={styles.dateTimePicker}>
-          <TextInput
-            style={styles.input}
-            placeholder='Date'
-            value={eventDate}
-            editable={false}
-          />
-          <Button title="Select Date" onPress={showDatePicker} />
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleDateConfirm}
-            onCancel={hideDatePicker}
-          />
+      <View style={styles.container}>
+        <Text style={styles.heading}>Create Event</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Event Name' 
+          value={eventName}
+          onChangeText={text => setEventName(text)}
+        />
+        <TextInput
+          style={styles.descriptionInput}
+          placeholder='Description of the event'
+          multiline
+          value={eventDescription}
+          onChangeText={text => setEventDescription(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Event Venue'
+          value={eventVenue}
+          onChangeText={text => setEventVenue(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Organization'
+          value={organization}
+          onChangeText={text => setOrganization(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Allowed Departments (comma-separated)'
+          value={allowedDepartments}
+          onChangeText={text => setAllowedDepartments(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Allowed Years (comma-separated)'
+          value={allowedYears}
+          onChangeText={text => setAllowedYears(text)}
+        />
+        <View style={styles.dateTimeContainer}>
+          <View style={styles.dateTimePicker}>
+            <TextInput
+              style={styles.input}
+              placeholder='Date'
+              value={eventDate}
+              editable={false}
+            />
+            <Button title="Select Date" onPress={showDatePicker} />
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleDateConfirm}
+              onCancel={hideDatePicker}
+            />
+          </View>
+          <View style={styles.dateTimePicker}>
+            <TextInput
+              style={styles.input}
+              placeholder='Time'
+              value={eventTime}
+              editable={false}
+            />
+            <Button title="Select Time" onPress={showTimePicker} />
+            <DateTimePickerModal
+              isVisible={isTimePickerVisible}
+              mode="time"
+              onConfirm={handleTimeConfirm}
+              onCancel={hideTimePicker}
+            />
+          </View>
         </View>
-        <View style={styles.dateTimePicker}>
-          <TextInput
-            style={styles.input}
-            placeholder='Time'
-            value={eventTime}
-            editable={false}
-          />
-          <Button title="Select Time" onPress={showTimePicker} />
-          <DateTimePickerModal
-            isVisible={isTimePickerVisible}
-            mode="time"
-            onConfirm={handleTimeConfirm}
-            onCancel={hideTimePicker}
-          />
+        <View style={styles.submitButtonContainer}>
+          <Button title="Submit" onPress={handleSubmit} />
         </View>
       </View>
-      <Button title="Submit" onPress={handleSubmit} />
-    </View>
     </ScrollView>
   );
 }
@@ -203,5 +205,8 @@ const styles = StyleSheet.create({
   dateTimePicker: {
     flex: 1,
     marginRight: 10,
+  },
+  submitButtonContainer: {
+    marginTop: 20,
   },
 });
