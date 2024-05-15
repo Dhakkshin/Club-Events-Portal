@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Button, Modal } from "react-native";
+import { StyleSheet, Text, View, Button, Modal ,ScrollView} from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendBase } from "./../url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const UpcomingEvents = () => {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
@@ -96,6 +97,7 @@ const UpcomingEvents = () => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.header}>Upcoming Events</Text>
       {loading ? (
@@ -146,6 +148,7 @@ const UpcomingEvents = () => {
         </View>
       </Modal>
     </View>
+    </ScrollView>
   );
 };
 

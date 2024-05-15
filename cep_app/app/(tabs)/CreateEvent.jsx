@@ -146,7 +146,9 @@ const CreateEvent = () => {
           />
         </View>
       </View>
-      <Button title="Submit" onPress={handleSubmit} />
+      <View style={styles.submitButtonContainer}>
+        <Button title="Submit" onPress={handleSubmit} />
+      </View>
     </View>
   );
 }
@@ -187,5 +189,11 @@ const styles = StyleSheet.create({
   dateTimePicker: {
     flex: 1,
     marginRight: 10,
+  },
+  submitButtonContainer: {
+    position: 'absolute',
+    bottom: 30, // Adjust as needed
+    left: 20, // Adjust as needed
+    right: 20, // Adjust as needed
   },
 });
