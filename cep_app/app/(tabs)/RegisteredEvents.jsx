@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { backendBase } from "./../url";
+import { backendBase } from "./../url"; // Make sure this import is correct
+import { ScrollView } from "react-native-gesture-handler";
 
 const RegisteredEvents = () => {
   const [registeredEvents, setRegisteredEvents] = useState([]);
@@ -34,10 +35,11 @@ const RegisteredEvents = () => {
   }, []);
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.header}>Registered Events</Text>
       {loading ? (
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" color="#0000ff" />
       ) : registeredEvents.length === 0 ? (
         <Text>No registered events</Text>
       ) : (
@@ -50,6 +52,7 @@ const RegisteredEvents = () => {
         ))
       )}
     </View>
+    </ScrollView>
   );
 };
 

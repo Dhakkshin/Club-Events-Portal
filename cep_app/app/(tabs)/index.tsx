@@ -1,22 +1,22 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Login from './Login';
-import CreateAcc from './CreateAcc';
-import GetStarted from './GetStarted';
-import Hello from './Hello';
-import Event from './Event';
-import Profile from './Profile';
-import CreateEvent from './CreateEvent';
-import UpcomingEvents from './UpcomingEvents';
-import RegisteredEvents from './RegisteredEvents';
-import Students from './Students';
-import Forum from './Forum';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Login from "./Login";
+import CreateAcc from "./CreateAcc";
+import GetStarted from "./GetStarted";
+import Hello from "./Hello";
+import Event from "./Event";
+import Profile from "./Profile";
+import CreateEvent from "./CreateEvent";
+import UpcomingEvents from "./UpcomingEvents";
+import RegisteredEvents from "./RegisteredEvents";
+import Students from "./Students";
+import Forum from "./Forum";
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer independent={true}> 
+    <NavigationContainer independent={true}>
       <Stack.Navigator initialRouteName="GetStarted">
         <Stack.Screen name="Home" component={GetStarted} options={{ title: 'Home' }} />
         <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />

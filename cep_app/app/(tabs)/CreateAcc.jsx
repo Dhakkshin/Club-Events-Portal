@@ -30,7 +30,14 @@ const CreateAcc = () => {
     axios.post('https://flask-dbms.vercel.app/signup', userData)
       .then(res => {
         Alert.alert(res.data.message);
-        // Optionally, navigate to another screen upon successful registration
+        // Clear input fields upon successful registration
+        setName('');
+        setRollNo('');
+        setPhone('');
+        setPassword('');
+        setConfirmPassword('');
+        setDepartment('');
+        setYear('');
       })
       .catch(error => {
         Alert.alert('Registration failed', error.message);
@@ -65,21 +72,21 @@ const CreateAcc = () => {
         onChangeText={setDepartment}
       />
       <TextInput
-  style={styles.input}
-  placeholder='Year 1-5'
-  value={year.toString()} // Convert year to string for display
-  onChangeText={(text) => {
-    // Check if the entered text is a valid integer
-    const parsedYear = parseInt(text);
-    if (!isNaN(parsedYear)) {
-      // Ensure year is between 1 and 5
-      if (parsedYear >= 1 && parsedYear <= 5) {
-        setYear(parsedYear); // Set year as integer
-      }
-    }
-  }}
-  keyboardType='numeric'
-/>
+        style={styles.input}
+        placeholder='Year 1-5'
+        value={year.toString()} // Convert year to string for display
+        onChangeText={(text) => {
+          // Check if the entered text is a valid integer
+          const parsedYear = parseInt(text);
+          if (!isNaN(parsedYear)) {
+            // Ensure year is between 1 and 5
+            if (parsedYear >= 1 && parsedYear <= 5) {
+              setYear(parsedYear); // Set year as integer
+            }
+          }
+        }}
+        keyboardType='numeric'
+      />
       <TextInput
         style={styles.input}
         placeholder='Password'

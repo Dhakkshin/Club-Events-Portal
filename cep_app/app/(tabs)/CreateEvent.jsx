@@ -4,6 +4,7 @@ import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendBase } from "../url"; // Import backendBase from "../url"
+import { ScrollView } from "react-native-gesture-handler";
 
 const CreateEvent = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -14,6 +15,8 @@ const CreateEvent = () => {
   const [eventDescription, setEventDescription] = useState('');
   const [eventVenue, setEventVenue] = useState('');
   const [organization, setOrganization] = useState('');
+  const [allowedDepartments, setAllowedDepartments] = useState('');
+  const [allowedYears, setAllowedYears] = useState('');
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -61,8 +64,8 @@ const CreateEvent = () => {
           date: eventDate,
           time: eventTime,
           venue: eventVenue,
-          departments: ["CS", "IT"],
-          years: ["1", "2"],
+          departments: allowedDepartments.split(',').map(dep => dep.trim()), // Convert comma-separated string to array
+          years: allowedYears.split(',').map(year => parseInt(year.trim())), // Convert comma-separated string to array of integers
           organisation: organization,
           poster: "poster_url", // Adjust as necessary
         },
@@ -76,7 +79,6 @@ const CreateEvent = () => {
       // Check response and show appropriate alert
       if (response.data.message === "Event created successfully") {
         Alert.alert("Success", "Event created successfully");
-        // Optionally, you can reset the form fields here
       } else {
         Alert.alert("Error", "Failed to create event");
       }
@@ -87,11 +89,12 @@ const CreateEvent = () => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.heading}>Create Event</Text>
       <TextInput
         style={styles.input}
-        placeholder='Event Name'
+        placeholder='Event Name' 
         value={eventName}
         onChangeText={text => setEventName(text)}
       />
@@ -113,6 +116,18 @@ const CreateEvent = () => {
         placeholder='Organization'
         value={organization}
         onChangeText={text => setOrganization(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Allowed Departments (comma-separated)'
+        value={allowedDepartments}
+        onChangeText={text => setAllowedDepartments(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder='Allowed Years (comma-separated)'
+        value={allowedYears}
+        onChangeText={text => setAllowedYears(text)}
       />
       <View style={styles.dateTimeContainer}>
         <View style={styles.dateTimePicker}>
@@ -148,6 +163,7 @@ const CreateEvent = () => {
       </View>
       <Button title="Submit" onPress={handleSubmit} />
     </View>
+    </ScrollView>
   );
 }
 

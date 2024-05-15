@@ -25,6 +25,9 @@ const Hello = () => {
   const handleForum = () => {
     navigation.navigate('Forum');
   };
+  const handleLogout=()=>{
+    navigation.navigate('Login');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,11 +44,11 @@ const Hello = () => {
       <TouchableOpacity style={styles.button} onPress={handleRegisteredEvents}>
         <Text style={styles.buttonText}>Registered Event</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleStudents}>
-        <Text style={styles.buttonText}>Registered Students</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={handleForum}>
         <Text style={styles.buttonText}>Forum</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleLogout}>
+        <Text style={styles.buttonText}>Logout</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

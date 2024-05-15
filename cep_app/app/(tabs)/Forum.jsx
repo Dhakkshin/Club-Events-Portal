@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, Alert } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { backendBase } from './../url';
@@ -13,17 +13,11 @@ const Forum = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const token = await AsyncStorage.getItem("token");
-        if (token) {
-          const response = await axios.get(`${backendBase}/posts`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setPosts(response.data);
-        } else {
-          console.log("No token stored");
-        }
+        console.log("Fetching posts...");
+        const response = await axios.get(`${backendBase}/posts`);
+        console.log("Request:", `${backendBase}/posts`);
+        console.log("Response:", response.data);
+        setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
         setError("Error fetching posts");
@@ -37,28 +31,36 @@ const Forum = () => {
 
   const createPost = async () => {
     try {
+      // Retrieve JWT token from AsyncStorage
       const token = await AsyncStorage.getItem("token");
-      if (token) {
-        const response = await axios.post(`${backendBase}/posts/create`, {
+
+      console.log("Creating post...");
+      const response = await axios.post(
+        `${backendBase}/posts/create`,
+        {
           content: newPostContent,
-          // Assuming forum_id is required by the backend
-          forum_id: "your_forum_id",
-        }, {
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        console.log("Post created successfully:", response.data);
-        // Refresh the posts after creating a new post
-        fetchPosts();
-        // Clear the new post content input
-        setNewPostContent("");
-      } else {
-        console.log("No token stored");
-      }
+        }
+      );
+      console.log("Request:", `${backendBase}/posts/create`);
+      console.log("Request Body:", {
+        content: newPostContent,
+      });
+      console.log("Response:", response.data);
+      console.log("Post created successfully:", response.data);
+
+      // Add the newly created post to the posts array
+      setPosts([...posts, response.data]);
+
+      // Clear the new post content input
+      setNewPostContent("");
     } catch (error) {
       console.error("Error creating post:", error);
-      setError("Error creating post");
+      Alert.alert("Error", "Failed to create post");
     }
   };
 
@@ -72,8 +74,8 @@ const Forum = () => {
         ) : posts.length === 0 ? (
           <Text>No posts available</Text>
         ) : (
-          posts.map((post) => (
-            <View key={post._id} style={styles.post}>
+          posts.map((post, index) => (
+            <View key={index} style={styles.post}>
               <Text style={styles.postContent}>{post.content}</Text>
               <Text style={styles.postDate}>Posted on: {post.post_date}</Text>
             </View>

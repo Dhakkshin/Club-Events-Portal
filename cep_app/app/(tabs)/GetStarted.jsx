@@ -16,7 +16,7 @@ const GetStarted = () => {
         <View style={styles.container}>
             <Image source={clglogo} style={styles.logo} />
             <View style={styles.button}>
-                <Button title="Get Started" onPress={handlePress} color="white" />
+                <Button title="Get Started" onPress={handlePress} color="transparent" />
             </View>
         </View>
     );

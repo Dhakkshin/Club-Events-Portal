@@ -19,8 +19,8 @@ const Login = () => {
   const handleLogin = async () => {
     console.log("Login button pressed");
     try {
-      const response = await axios.post(`${backendBase}/login`, { // Interpolate backendBase variable properly
-        rollno: rollNo,
+      const response = await axios.post(`${backendBase}/login`, {
+        rollno: rollNo.toLowerCase(), // Convert rollNo to lowercase before sending
         password: password,
       });
       console.log("API call made");
@@ -34,6 +34,10 @@ const Login = () => {
         const retrieved = await AsyncStorage.getItem("token");
         console.log("Retrieved token:", retrieved);
         navigation.push('Hello');
+
+        // Clear input fields
+        setRollNo("");
+        setPassword("");
       }
     } catch (error) {
       console.log("API call failed");
